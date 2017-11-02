@@ -6,13 +6,30 @@
     android:layout_height="match_parent"
     tools:context="se.kth.roberto.myapplication.MainActivity">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+    <EditText
+        android:id="@+id/input_value_from_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:text="0"/>
+    
+    <Button
+        android:id="@+id/convert_from_g_to_kg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="From g to KG"
+        android:onClick="convert"/>
+    <Button
+        android:id="@+id/convert_from_kg_to_g"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="From Kg to g"
+            android:onClick="convert"/>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
