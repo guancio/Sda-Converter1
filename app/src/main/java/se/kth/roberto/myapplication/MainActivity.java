@@ -3,6 +3,7 @@ package se.kth.roberto.myapplication;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,10 +18,12 @@ import java.util.Vector;
 import se.kth.roberto.myapplication.controller.AddressBookController;
 import se.kth.roberto.myapplication.controller.ConverterController;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private AddressBookController controller;
     private ArrayAdapter adapter;
+    private ArrayAdapter adapterTwo;
+    private Vector<String> listOfPossibleMatchingNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +32,45 @@ public class MainActivity extends AppCompatActivity {
 
         controller = new AddressBookController();
 
-        Spinner spinner = (Spinner) findViewById(R.id.names);
+        final Spinner spinner = (Spinner) findViewById(R.id.names);
         // Create an ArrayAdapter using the string list and a default spinner layout
         adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, controller.getAllNames());
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-        
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast toast = Toast.makeText(
+                        MainActivity.this,
+                        (String)spinner.getItemAtPosition(spinner.getSelectedItemPosition()),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+
+                //int positionSelected = spinner.getSelectedItemPosition();
+
+                String selectedName = (String)spinner.getItemAtPosition(position);
+                listOfPossibleMatchingNames.clear();
+                for (String name : controller.getAllNames()) {
+                    if (!name.equals(selectedName))
+                        listOfPossibleMatchingNames.add(name);
+                }
+                adapterTwo.notifyDataSetChanged();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        Spinner spinnerTwo = (Spinner) findViewById(R.id.namesSecond);
+        // Create an ArrayAdapter using the string list and a default spinner layout
+        listOfPossibleMatchingNames = new Vector<String>();
+        adapterTwo = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listOfPossibleMatchingNames);
+        // Specify the layout to use when the list of choices appears
+        adapterTwo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinnerTwo.setAdapter(adapterTwo);
+
         // comment
     }
 

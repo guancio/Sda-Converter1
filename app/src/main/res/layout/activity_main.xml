@@ -17,7 +17,7 @@
             android:id="@+id/input_value_from_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0" />
+            android:text="Name" />
 
 
         <Button
@@ -29,6 +29,10 @@
 
         <Spinner
             android:id="@+id/names"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Spinner
+            android:id="@+id/namesSecond"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
